@@ -23,7 +23,7 @@ public class BandServiceTest {
     @InjectMocks
     private BandService bandService = new BandService(bandRepository);
 
-    Band sabaton = new Band("Sabaton", "Power Metal");
+    final Band sabaton = new Band("Sabaton", "Power Metal");
 
     @Test
     @DisplayName("find all bands returns empty list")
@@ -63,8 +63,6 @@ public class BandServiceTest {
     public void findByNameThrowsException(){
         when(bandRepository.findByName("Sabaton")).thenThrow(new BandNotFoundException("Band Sabaton does not exist"));
 
-        assertThatThrownBy(() -> {
-            bandService.findByName("Sabaton");
-        }).isInstanceOf(BandNotFoundException.class);
+        assertThatThrownBy(() -> bandService.findByName("Sabaton")).isInstanceOf(BandNotFoundException.class);
     }
 }

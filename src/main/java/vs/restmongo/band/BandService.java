@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 @Service
 public class BandService {
 
-    private BandRepository bandRepository;
+    private final BandRepository bandRepository;
 
     public BandService(BandRepository bandRepository) {
         this.bandRepository = bandRepository;
@@ -18,8 +18,7 @@ public class BandService {
 
     public List<BandDto> findAll() {
         var allBands = bandRepository.findAll();
-        var allBandsDto = allBands.stream().map(band -> band.toBandDto()).collect(Collectors.toList());
-        return allBandsDto;
+        return allBands.stream().map(Band::toBandDto).collect(Collectors.toList());
     }
 
     public BandDto findByName(String name) {

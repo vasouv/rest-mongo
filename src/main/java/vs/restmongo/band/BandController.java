@@ -9,7 +9,7 @@ import java.util.List;
 @RequestMapping("band")
 public class BandController {
 
-    private BandService bandService;
+    private final BandService bandService;
 
     public BandController(BandService bandService) {
         this.bandService = bandService;
