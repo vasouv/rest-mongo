@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -30,4 +31,15 @@ public class BandService {
         return foundBand.get().toBandDto();
     }
 
+    public BandDto save(BandDto bandDto) {
+        var bandToSave = bandDto.toBand();
+        Optional<Band> foundBand = bandRepository.findByName(bandToSave.getName());
+        if (foundBand.isPresent()) {
+            log.warn("Band " + bandToSave.getName() + " exists");
+            throw new BandExistsException("Band " + bandToSave.getName() + " already exists");
+        }
+
+        Band savedBand = bandRepository.save(bandToSave);
+        return savedBand.toBandDto();
+    }
 }

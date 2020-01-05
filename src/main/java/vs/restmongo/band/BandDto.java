@@ -15,4 +15,8 @@ public class BandDto {
     @NotBlank
     private String genre;
 
+    public Band toBand() {
+        return new Band(this.name, this.genre);
+    }
+
 }
