@@ -26,6 +26,11 @@ public class Band {
     @NotBlank
     private String genre;
 
+    public Band(@NotBlank String name, @NotBlank String genre) {
+        this.name = name;
+        this.genre = genre;
+    }
+
     public BandDto toBandDto() {
         return new BandDto(this.name, this.genre);
     }

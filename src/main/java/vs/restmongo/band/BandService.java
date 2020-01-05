@@ -18,7 +18,6 @@ public class BandService {
 
     public List<BandDto> findAll() {
         var allBands = bandRepository.findAll();
-        allBands.forEach(band -> log.info(band.toString()));
         var allBandsDto = allBands.stream().map(band -> band.toBandDto()).collect(Collectors.toList());
         return allBandsDto;
     }
