@@ -21,7 +21,7 @@ public class BandServiceTest {
     private BandRepository bandRepository;
 
     @InjectMocks
-    private BandService bandService = new BandService(bandRepository);
+    private BandService bandService;
 
     final Band sabaton = new Band("Sabaton", "Power Metal");
 
