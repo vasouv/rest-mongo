@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -71,6 +72,27 @@ public class BandControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(sabatonDto)))
                 .andExpect(status().isCreated());
+    }
+
+    @Test
+    @DisplayName("save new band with space in the name")
+    public void saveNewBandWithSpaceInTheName() throws Exception {
+        var blackSabbathDto = new BandDto("Black Sabbath","Heavy Metal");
+
+        when(bandService.save(blackSabbathDto)).thenReturn(blackSabbathDto);
+
+        MvcResult result = mockMvc.perform(post("/band")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(blackSabbathDto)))
+                .andExpect(status().isCreated())
+                .andReturn();
+
+        MockHttpServletResponse response = result.getResponse();
+
+        // mvn will product /Black_Sabbath, so I'm removing the leading /
+        String location = response.getHeader("Location").substring(1);
+
+        assertThat(location).isEqualTo(blackSabbathDto.getName().replace(' ','_'));
     }
 
     @Test

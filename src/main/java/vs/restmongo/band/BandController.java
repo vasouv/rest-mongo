@@ -32,7 +32,7 @@ public class BandController {
     @PostMapping
     public ResponseEntity<BandDto> save(HttpServletRequest request, @Valid @RequestBody BandDto band) {
         var savedBandDto = bandService.save(band);
-        var savedBandDtoUri = UriComponentsBuilder.fromUriString(request.getServletPath()).path("/" + savedBandDto.getName()).build().toUri();
+        var savedBandDtoUri = UriComponentsBuilder.fromUriString(request.getServletPath()).path("/" + savedBandDto.getName().replace(' ', '_')).build().toUri();
         return ResponseEntity.created(savedBandDtoUri).body(savedBandDto);
     }
 
