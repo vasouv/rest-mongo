@@ -1,4 +1,4 @@
-package vs.restmongo.band;
+package vs.restmongo.band.exceptions;
 
 import javax.validation.constraints.NotBlank;
 

@@ -16,6 +16,7 @@ import javax.validation.constraints.NotBlank;
 public class Band {
 
     @Id
+    @Setter
     private String id;
 
     @Setter
